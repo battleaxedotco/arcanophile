@@ -56,7 +56,7 @@ function makeFolder(targetPath) {
  * Shorter alias of a writeFileSync function to create a file at specified path
  *
  * @param {String} targetPath Relative or absolute file path
- * @param {String|Buffer|URL} targetPath Contents of file
+ * @param {String|Buffer|URL} data Contents of file
  * @param {Object} options Key/values for encoding, mode, and flag
  * @returns {Boolean} Whether folder creation was successful
  */
