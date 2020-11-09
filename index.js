@@ -4,9 +4,9 @@ const path = require("path");
 /**
  * Checks if path exists and is actually a directory, optionally creates the folder whenever investigated
  *
- * @param {String} targetPath - Relative or absolute file path
- * @param {Boolean} createOnRun - If TRUE, create empty folder if didn't previously exist
- * @returns {Boolean} - Whether path existed at time of investigating
+ * @param {String} targetPath Relative or absolute file path
+ * @param {Boolean} createOnRun If TRUE, create empty folder if didn't previously exist
+ * @returns {Boolean} Whether path existed at time of investigating
  */
 function folderExists(targetPath, createOnRun = true) {
   if (!exists(targetPath) && createOnRun) makeFolder(targetPath);
@@ -16,9 +16,9 @@ function folderExists(targetPath, createOnRun = true) {
 /**
  * Returns Boolean if path exists and it's a valid folder, optionally creates the folder whenever investigated
  *
- * @param {String} targetPath - Relative or absolute file path
- * @param {Boolean} createOnRun - If TRUE, create empty folder if didn't previously exist
- * @returns {Boolean} - Whether path exists
+ * @param {String} targetPath Relative or absolute file path
+ * @param {Boolean} createOnRun If TRUE, create empty folder if didn't previously exist
+ * @returns {Boolean} Whether path exists
  */
 function fileExists(targetPath) {
   return (
@@ -29,8 +29,8 @@ function fileExists(targetPath) {
 /**
  * Type independent function to check existence of path
  *
- * @param {String} targetPath - Relative or absolute file path
- * @returns {Boolean} - Whether path exists
+ * @param {String} targetPath Relative or absolute file path
+ * @returns {Boolean} Whether path exists
  */
 function exists(targetPath) {
   return fs.existsSync(path.resolve(targetPath));
@@ -41,8 +41,8 @@ function exists(targetPath) {
 /**
  * Shorter alias of a mkdir function to create a folder at specified path
  *
- * @param {String} targetPath - Relative or absolute file path
- * @returns {Boolean} - Whether folder creation was successful
+ * @param {String} targetPath Relative or absolute file path
+ * @returns {Boolean} Whether folder creation was successful
  */
 function makeFolder(targetPath) {
   return fs.mkdirSync(path.resolve(targetPath));
@@ -55,10 +55,10 @@ function makeFolder(targetPath) {
 /**
  * Shorter alias of a writeFileSync function to create a file at specified path
  *
- * @param {String} targetPath - Relative or absolute file path
- * @param {String|Buffer|URL} targetPath - Contents of file
- * @param {Object} options - Key/values for encoding, mode, and flag
- * @returns {Boolean} - Whether folder creation was successful
+ * @param {String} targetPath Relative or absolute file path
+ * @param {String|Buffer|URL} targetPath Contents of file
+ * @param {Object} options Key/values for encoding, mode, and flag
+ * @returns {Boolean} Whether folder creation was successful
  */
 function makeFile(targetPath, data, options = null) {
   return fs.writeFileSync(path.resolve(targetPath), data, options);
@@ -67,8 +67,8 @@ function makeFile(targetPath, data, options = null) {
 /**
  * Verify a given path string is actually a directory and not a type of file
  *
- * @param {String} targetPath - Relative or absolute file path
- * @returns {Boolean} - Whether path exists
+ * @param {String} targetPath Relative or absolute file path
+ * @returns {Boolean} Whether path exists
  */
 function isFolder(targetPath) {
   return fs.lstatSync(path.resolve(targetPath)).isDirectory();
@@ -77,9 +77,9 @@ function isFolder(targetPath) {
 /**
  * Thenable way to get all the file contents of a folder path
  *
- * @param {String} folderPath - Relative or absolute folder path
- * @param {Boolean} verbose - If false, only return file content, otherwise return detailed File object
- * @returns {Array} - String data of each file contained within
+ * @param {String} folderPath Relative or absolute folder path
+ * @param {Boolean} verbose If false, only return file content, otherwise return detailed File object
+ * @returns {Array} String data of each file contained within
  */
 async function readFiles(folderPath, verbose = true) {
   let mapped = [];
@@ -91,9 +91,9 @@ async function readFiles(folderPath, verbose = true) {
 /**
  * Thenable way to get a file's contents
  *
- * @param {String} folderPath - Relative or absolute folder path
- * @param {Boolean} verbose - If false, only return file content, otherwise return detailed File object
- * @returns {Array} - String data of each file contained within
+ * @param {String} folderPath Relative or absolute folder path
+ * @param {Boolean} verbose If false, only return file content, otherwise return detailed File object
+ * @returns {Array} String data of each file contained within
  */
 async function readFile(targetPath, verbose = true) {
   return new Promise((resolve, reject) => {
@@ -112,9 +112,9 @@ async function readFile(targetPath, verbose = true) {
 /**
  * Returns the children filepaths of each folder Array entry
  *
- * @param {String} folderPath - Relative or absolute folder path
- * @param {Boolean} flatten - Return as a single Array, otherwise return as Array of separate nested Arrays
- * @returns {Array} - Any filepaths contained within a target folderpath entry
+ * @param {String} folderPath Relative or absolute folder path
+ * @param {Boolean} flatten Return as a single Array, otherwise return as Array of separate nested Arrays
+ * @returns {Array} Any filepaths contained within a target folderpath entry
  */
 async function readDirs(folderPaths, flatten = false) {
   let mapped = [];
@@ -125,8 +125,8 @@ async function readDirs(folderPaths, flatten = false) {
 /**
  * Returns the children filepaths of given folder path
  *
- * @param {String} folderPath - Relative or absolute folder path
- * @returns {Array} - Paths to each child file entry
+ * @param {String} folderPath Relative or absolute folder path
+ * @returns {Array} Paths to each child file entry
  */
 async function readDir(targetPath) {
   return new Promise((resolve, reject) => {
