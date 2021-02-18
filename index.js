@@ -1,6 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 
+function resolvePath(path) {
+  return window && window.__adobe_cep__ ? path : path.resolve(path);
+}
+
 /**
  * Checks if path exists and is actually a directory, optionally creates the folder whenever investigated
  *
@@ -21,9 +25,7 @@ function folderExists(targetPath, createOnRun = true) {
  * @returns {Boolean} Whether path exists
  */
 function fileExists(targetPath) {
-  return (
-    exists(path.resolve(targetPath)) && !isFolder(path.resolve(targetPath))
-  );
+  return exists(resolvePath(targetPath)) && !isFolder(resolvePath(targetPath));
 }
 
 /**
@@ -33,7 +35,7 @@ function fileExists(targetPath) {
  * @returns {Boolean} Whether path exists
  */
 function exists(targetPath) {
-  return fs.existsSync(path.resolve(targetPath));
+  return fs.existsSync(resolvePath(targetPath));
 }
 
 // @@@ SHOULD BE ASYNC
@@ -45,7 +47,7 @@ function exists(targetPath) {
  * @returns {Boolean} Whether folder creation was successful
  */
 function makeFolder(targetPath) {
-  return fs.mkdirSync(path.resolve(targetPath));
+  return fs.mkdirSync(resolvePath(targetPath));
 }
 
 // @@@ SHOULD BE ASYNC
@@ -61,7 +63,7 @@ function makeFolder(targetPath) {
  * @returns {Boolean} Whether folder creation was successful
  */
 function makeFile(targetPath, data, options = null) {
-  return fs.writeFileSync(path.resolve(targetPath), data, options);
+  return fs.writeFileSync(resolvePath(targetPath), data, options);
 }
 
 /**
@@ -71,7 +73,7 @@ function makeFile(targetPath, data, options = null) {
  * @returns {Boolean} Whether path exists
  */
 function isFolder(targetPath) {
-  return fs.lstatSync(path.resolve(targetPath)).isDirectory();
+  return fs.lstatSync(resolvePath(targetPath)).isDirectory();
 }
 
 /**
@@ -97,12 +99,12 @@ async function readFiles(folderPath, verbose = true) {
  */
 async function readFile(targetPath, verbose = true) {
   return new Promise((resolve, reject) => {
-    fs.readFile(path.resolve(targetPath), "utf-8", (err, data) => {
+    fs.readFile(resolvePath(targetPath), "utf-8", (err, data) => {
       if (err) reject(err);
       if (!verbose) resolve(data);
       let temp = {
         data: data,
-        stats: fs.lstatSync(path.resolve(targetPath)),
+        stats: fs.lstatSync(resolvePath(targetPath)),
       };
       resolve(temp);
     });
@@ -132,14 +134,10 @@ async function readDir(targetPath) {
   return new Promise((resolve, reject) => {
     if (!exists(targetPath) || !isFolder(targetPath))
       reject("Path is not a folder or does not exist");
-    fs.readdir(
-      path.resolve(targetPath),
-      { encoding: "utf-8" },
-      (err, files) => {
-        if (err) reject(err);
-        resolve(files);
-      }
-    );
+    fs.readdir(resolvePath(targetPath), { encoding: "utf-8" }, (err, files) => {
+      if (err) reject(err);
+      resolve(files);
+    });
   });
 }
 

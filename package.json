@@ -1,6 +1,6 @@
 {
   "name": "arcanophile",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "File system read/write utility toolkit",
   "main": "index.js",
   "scripts": {
@@ -12,5 +12,6 @@
   "license": "ISC",
   "devDependencies": {
     "jsdoc-to-markdown": "^6.0.1"
-  }
+  },
+  "dependencies": {}
 }
